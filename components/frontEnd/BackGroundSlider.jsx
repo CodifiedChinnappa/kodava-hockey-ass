@@ -1,5 +1,6 @@
 "use client";
 
+import useWindowDimensions from "@/hooks/useDimension";
 import { cn } from "@/lib/utils";
 import { useEffect, useState } from "react";
 
@@ -23,6 +24,8 @@ const imageSlides = [
 
 export const BackGroundSlider = () => {
   const [currentState, setCurrentState] = useState(0);
+  const { height, width } = useWindowDimensions();
+  console.log(width);
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -36,17 +39,18 @@ export const BackGroundSlider = () => {
     backgroundPosition: "center",
     backgroundSize: "cover",
     height: "100vh",
+    width:width,
   };
   return (
-    <div className="h-full relative">
-      <div style={bgImageStyle} className="w-full md:w-[98.9vw]"></div>
+    <div className="h-full relative ">
+      <div style={bgImageStyle}></div>
       <div className="w-full h-[100vh] sm:m-auto absolute z-auto top-0 left-0 bg-gradient-to-r from-cyan-600 "></div>
       <div className=" sm:w-full absolute w-[280px]  md:w-[600px] z-auto top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 sm:top-1/2 sm:left-1/4 flex flex-col space-y-5">
         <div>
           <h1 className="text-4xl">{imageSlides[currentState].title} </h1>
           <p className="text-xl">{imageSlides[currentState].body} </p>
         </div>
-        <div className="flex items-center space-x-3">
+        <div className="flex items-center space-x-3 ">
           {imageSlides.map((slide, index) => (
             <span
               key={index}

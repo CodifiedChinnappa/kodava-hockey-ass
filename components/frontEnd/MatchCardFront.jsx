@@ -99,7 +99,7 @@ export const MatchCardFront = ({ match }) => {
               {/* //game details */}
 
               <div>
-                {match.participants.map((team) => (
+                {match.status !== "UPCOMING" && match.participants.map((team) => (
                   <div
                     className="flex flex-col mb-4 bg-white text-black p-2 rounded-sm"
                     key={team.id}
@@ -108,7 +108,9 @@ export const MatchCardFront = ({ match }) => {
                       {team.families.familyName}
                     </h1>
                     <hr className="my-1 h-0.5 border-t-0 bg-neutral-100 dark:bg-black" />
-                    <h1 className="label">goals ({team.goals?.length})</h1>
+                    <h1 className="label text-center">
+                      goals ({team.goals?.length})
+                    </h1>
                     {team.goals.map((scorer, index) => (
                       <div
                         key={index}
@@ -122,20 +124,26 @@ export const MatchCardFront = ({ match }) => {
                         <h3 className="text-sm">{scorer?.type}</h3>
                       </div>
                     ))}
-                    <hr className="my-1 h-0.5 border-t-0 bg-neutral-100 dark:bg-black" />
-                    <div>
-                      <h1 className="label">shootout ({team.goals?.length})</h1>
-                      {team?.penaltyShoot.map((item, i) => (
-                        <div
-                          key={i}
-                          className="flex space-x-4 items-center justify-around gap-5"
-                        >
-                          <h5>
-                            {i + 1} : {item ? "scored" : "missed"}
-                          </h5>
+                    {team?.penaltyShoot.length>0 ? (
+                      <>
+                        <hr className="my-1 h-0.5 border-t-0 bg-neutral-100 dark:bg-black" />
+                        <div>
+                          <h1 className="label text-center">
+                            shootout ({team.goals?.length})
+                          </h1>
+                          {team?.penaltyShoot.map((item, i) => (
+                            <div
+                              key={i}
+                              className="flex space-x-4 items-center justify-around gap-5"
+                            >
+                              <h5>
+                                {i + 1} : {item ? "scored" : "missed"}
+                              </h5>
+                            </div>
+                          ))}
                         </div>
-                      ))}
-                    </div>
+                      </>
+                    ) : null}
                   </div>
                 ))}
               </div>
