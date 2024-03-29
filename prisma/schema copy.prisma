@@ -1,0 +1,236 @@
+datasource db {
+  provider = "mongodb"
+  url      = env("MONGODB_URI")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model User {
+  id                 String         @id @default(auto()) @map("_id") @db.ObjectId
+  name               String
+  email              String         @unique
+  role               UserRole       @default(USER)
+  phoneNumber        String         @unique
+  alternateNumber    String?        @unique
+  password           String
+  emailVerified      Boolean        @default(false)
+  isBlocked          Boolean        @default(false)
+  isActive           Boolean        @default(true)
+  images             Images[]
+  Tournaments        Tournaments[]
+  families           Families[]
+  achievements       Achievements[]
+  passwordResetToken String?        @unique
+  verificationToken  String?        @unique
+  Managers           Managers?
+  Matches            Matches[]
+}
+
+model Tournaments {
+  id         String    @id @default(auto()) @map("_id") @db.ObjectId
+  year       Int       @unique
+  sponsors   Json[]
+  info       Json[]
+  images     Images[]
+  familiesId String    @db.ObjectId
+  family     Families? @relation(fields: [familiesId], references: [id])
+  winners    Winners[]
+  createdBy  User      @relation(fields: [userId], references: [id])
+  userId     String    @db.ObjectId
+  Matches    Matches[]
+}
+
+model Families {
+  id           String         @id @default(auto()) @map("_id") @db.ObjectId
+  familyName   String         @unique
+  eliminated   Boolean?
+  info         Json[]
+  achievements Achievements[]
+  images       Images[]
+  Coach        Coaches?       @relation(fields: [coachesId], references: [id])
+  manager      Managers?      @relation(fields: [managersId], references: [id])
+  createdById  String         @unique @db.ObjectId
+  createdBy    User           @relation(fields: [createdById], references: [id])
+  managersId   String?        @db.ObjectId
+  coachesId    String?        @db.ObjectId
+  Tournaments  Tournaments[]
+  Teams        Teams[]
+  playersId    String[]       @db.ObjectId
+  players      Players[]      @relation(fields: [playersId], references: [id])
+}
+
+model Players {
+  id           String         @id @default(auto()) @map("_id") @db.ObjectId
+  playerName   String         @unique
+  achievements Achievements[]
+  GoalScorers  GoalScorers[]
+  goalScorersIds    String[]       @db.ObjectId
+  goalScorers       GoalScorers[]     @relation(fields: [goalScorersIds], references: [id])
+  goalScorersIds    String       @db.ObjectId
+  goalScorers       GoalScorers    @relation(fields: [goalScorersIds], references: [id])
+  familyIds    String[]       @db.ObjectId
+  family       Families[]     @relation(fields: [familyIds], references: [id])
+}
+
+model Matches {
+  id             String      @id @default(auto()) @map("_id") @db.ObjectId
+  matchNo        Int         @unique
+  createdById    String      @unique @db.ObjectId
+  createdBy      User        @relation(fields: [createdById], references: [id])
+  venue          Venues
+  scheduledOn    String
+  pool           Pool
+  round          Round
+  duration       Duration    @default(NA)
+  status         Status      @default(UPCOMING)
+  participantsId String[]    @db.ObjectId
+  participants   Teams[]     @relation(fields: [participantsId], references: [id])
+  winner         String?
+  images         Images[]
+  walkover       Boolean?
+  nextMatchId    String?     @db.ObjectId
+  tournamentId   String      @db.ObjectId
+  tournament     Tournaments @relation(fields: [tournamentId], references: [id])
+}
+
+model Teams {
+  id           String        @id @default(auto()) @map("_id") @db.ObjectId
+  penaltyShoot Boolean[]     @default([])
+  goalScorers  GoalScorers[]
+  matches      Matches[]     @relation(fields: [matchesId], references: [id])
+  matchesId    String[]      @db.ObjectId
+  families     Families      @relation(fields: [familiesId], references: [id])
+  familiesId   String        @db.ObjectId
+}
+
+model Managers {
+  id           String         @id @default(auto()) @map("_id") @db.ObjectId
+  name         String?
+  family       String
+  achievements Achievements[]
+  phone        String?
+  createdById  String         @unique @db.ObjectId
+  createdBy    User           @relation(fields: [createdById], references: [id])
+  //todo
+  families     Families      @relation(fields: [familiesId], references: [id])
+
+ families     Families      @relation(fields: [familiesId], references: [id])
+}
+
+model Coaches {
+  id           String         @id @default(auto()) @map("_id") @db.ObjectId
+  name         String?
+  family       String
+  familyId     Int
+  achievements Achievements[]
+  phone        String?
+  //todo
+  families     Families      @relation(fields: [familiesId], references: [id])
+
+  familiesId   String        @db.ObjectId
+}
+
+model GoalScorers {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  family    String
+  player    Players  @relation(fields: [playersId], references: [id])
+  minute    Int
+  type      GoalType @default(FIELD)
+  jersey    Int?
+  matchesId String   @db.ObjectId
+  playersId String   @db.ObjectId
+  Teams     Teams?   @relation(fields: [teamsId], references: [id])
+  teamsId   String?  @db.ObjectId
+}
+
+model Winners {
+  id            String      @id @default(auto()) @map("_id") @db.ObjectId
+  placement     Placements
+  family        String
+  tournaments   Tournaments @relation(fields: [tournamentsId], references: [id])
+  tournamentsId String      @unique @db.ObjectId
+}
+
+model Images {
+  id            String       @id @default(auto()) @map("_id") @db.ObjectId
+  title         String
+  publicId      String
+  category      String       @default("General")
+  description   String?
+  createdBy     User         @relation(fields: [userId], references: [id])
+  userId        String       @db.ObjectId
+  Tournaments   Tournaments? @relation(fields: [tournamentsId], references: [id])
+  tournamentsId String?      @db.ObjectId
+  Families      Families?    @relation(fields: [familiesId], references: [id])
+  familiesId    String?      @db.ObjectId
+  Matches       Matches?     @relation(fields: [matchesId], references: [id])
+  matchesId     String?      @db.ObjectId
+}
+
+//TYPES
+
+type Achievements {
+  year       String?
+  tournament String
+  title      String
+}
+
+//ENUMS
+enum UserRole {
+  ADMIN
+  USER
+}
+
+enum Placements {
+  FIRST
+  SECOND
+  THIRD
+}
+
+enum GoalType {
+  OWN
+  PENALTY
+  FIELD
+}
+
+enum Venues {
+  GROUND1
+  GROUND2
+  GROUND3
+}
+
+enum Pool {
+  A
+  B
+  C
+  D
+}
+
+enum Round {
+  DAY1
+  DAY2
+  DAY3
+  PREQUARTER
+  SEMIFINAL
+  FINAL
+}
+
+enum Duration {
+  NA
+  FIRSTHALF
+  FIRSTQUARTER
+  SECONDHALF
+  SECONDQUARTER
+  THIRDQUARTER
+  FOURTHQUARTER
+  FULLTIME
+  SHOOTOUT
+}
+
+enum Status {
+  LIVE
+  UPCOMING
+  PLAYED
+}
