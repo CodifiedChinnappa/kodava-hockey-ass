@@ -35,7 +35,7 @@ const RadioCard = ({ options, onChange, defaultSelected }) => {
           />
           <div
             className={cn(
-              "bg-white rounded-sm shadow-md p-1 transition duration-300 ease-in-out transform hover:scale-105",
+              "bg-white border rounded-sm shadow-md p-1 transition duration-300 ease-in-out transform hover:scale-105",
               {
                 "bg-green-300": selectedOption === option.value,
               }

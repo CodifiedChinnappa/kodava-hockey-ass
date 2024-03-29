@@ -92,6 +92,9 @@ export const MatchCardFront = ({ match }) => {
                 <p className="text-indigo-200">
                   {formattedScheduledOn} | {venue} | {round}
                 </p>
+                <p className="text-indigo-200">
+                  Status: {match.status} | Duration: {match.duration}
+                </p>
               </div>
               {/* //game details */}
 
@@ -101,7 +104,9 @@ export const MatchCardFront = ({ match }) => {
                     className="flex flex-col mb-4 bg-white text-black p-2 rounded-sm"
                     key={team.id}
                   >
-                    <h1 className="label">{team.families.familyName}</h1>
+                    <h1 className="label text-center capitalize">
+                      {team.families.familyName}
+                    </h1>
                     <hr class="my-1 h-0.5 border-t-0 bg-neutral-100 dark:bg-black" />
                     <h1 className="label">goals ({team.goals?.length})</h1>
                     {team.goals.map((scorer, index) => (

@@ -13,9 +13,12 @@ function Sidebar({ sidebarOpen, setSidebarOpen }) {
 
   const storedSidebarExpanded =
     typeof window !== "undefined" && localStorage.getItem("sidebar-expanded");
+
   const [sidebarExpanded, setSidebarExpanded] = useState(
     storedSidebarExpanded === null ? false : storedSidebarExpanded === "true"
   );
+
+  
 
   // close on click outside
   useEffect(() => {
@@ -66,7 +69,7 @@ function Sidebar({ sidebarOpen, setSidebarOpen }) {
       <div
         id="sidebar"
         ref={sidebar}
-        className={`flex flex-col absolute z-40 left-0 top-0 lg:static lg:left-auto lg:top-auto lg:translate-x-0 h-screen overflow-y-scroll lg:overflow-y-auto no-scrollbar w-64 lg:w-20 lg:sidebar-expanded:!w-64 2xl:!w-64 shrink-0 bg-slate-800 p-4 transition-all duration-200 ease-in-out ${
+        className={`flex flex-col absolute z-40 left-0 top-0 lg:static lg:left-auto lg:top-auto lg:translate-x-0 h-screen overflow-y-scroll lg:overflow-y-auto no-scrollbar w-64  shrink-0 bg-slate-800 p-4 transition-all duration-200 ease-in-out ${
           sidebarOpen ? "translate-x-0" : "-translate-x-64"
         }`}
       >
@@ -136,12 +139,12 @@ function Sidebar({ sidebarOpen, setSidebarOpen }) {
           {/* Pages group */}
           <div>
             <h3 className="text-xs uppercase text-slate-500 font-semibold pl-3">
-              <span
+              {/* <span
                 className="hidden lg:block lg:sidebar-expanded:hidden 2xl:hidden text-center w-6"
                 aria-hidden="true"
               >
                 •••
-              </span>
+              </span> */}
               <span className="lg:hidden lg:sidebar-expanded:block 2xl:block">
                 Pages
               </span>
@@ -149,7 +152,7 @@ function Sidebar({ sidebarOpen, setSidebarOpen }) {
             <ul className="mt-3">
               {/* Dashboard */}
               <li
-                className={`px-3 py-2 rounded-sm mb-0.5 last:mb-0 ${
+                className={`px-3 py-2 rounded-sm mb-0.5 last:mb-0 text-white  ${
                   pathname.includes("dashboard") && "bg-slate-900"
                 }`}
               >
@@ -180,19 +183,22 @@ function Sidebar({ sidebarOpen, setSidebarOpen }) {
                         d="m23.72 12 .229.686A.984.984 0 0 1 24 13v8a1 1 0 0 1-1 1H1a1 1 0 0 1-1-1v-8c0-.107.017-.213.051-.314L.28 12H8v4h8v-4H23.72ZM13 0v7h3l-4 5-4-5h3V0h2Z"
                       />
                     </svg>
-                    <span className="text-sm font-medium ml-3 lg:opacity-0 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">
+                    <span className="  text-sm font-medium ml-3  lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">
                       Dashboard
                     </span>
                   </div>
                 </Link>
               </li>
-              {/* catalogue */}
+              {/* game controls */}
               <SidebarLinkGroup
                 activeCondition={
                   pathname === "/" ||
-                  ["add-tournament","add-match", "add-family", "list-matches"].some(
-                    (substring) => pathname.includes(substring)
-                  )
+                  [
+                    "add-tournament",
+                    "add-match",
+                    "add-family",
+                    "list-matches",
+                  ].some((substring) => pathname.includes(substring))
                 }
               >
                 {(handleClick, open) => {
@@ -218,7 +224,10 @@ function Sidebar({ sidebarOpen, setSidebarOpen }) {
                                 className={`fill-current ${
                                   pathname === "/" ||
                                   [
-                                    "add-tournament","add-match", "add-family", "list-matches"
+                                    "add-tournament",
+                                    "add-match",
+                                    "add-family",
+                                    "list-matches",
                                   ].some((substring) =>
                                     pathname.includes(substring)
                                   )
@@ -231,7 +240,10 @@ function Sidebar({ sidebarOpen, setSidebarOpen }) {
                                 className={`fill-current ${
                                   pathname === "/" ||
                                   [
-                                    "add-tournament","add-match", "add-family", "list-matches"
+                                    "add-tournament",
+                                    "add-match",
+                                    "add-family",
+                                    "list-matches",
                                   ].some((substring) =>
                                     pathname.includes(substring)
                                   )
@@ -244,7 +256,10 @@ function Sidebar({ sidebarOpen, setSidebarOpen }) {
                                 className={`fill-current ${
                                   pathname === "/" ||
                                   [
-                                    "add-tournament","add-match", "add-family", "list-matches"
+                                    "add-tournament",
+                                    "add-match",
+                                    "add-family",
+                                    "list-matches",
                                   ].some((substring) =>
                                     pathname.includes(substring)
                                   )
@@ -254,7 +269,7 @@ function Sidebar({ sidebarOpen, setSidebarOpen }) {
                                 d="M12 15c-1.654 0-3-1.346-3-3 0-.462.113-.894.3-1.285L6 6l4.714 3.301A2.973 2.973 0 0112 9c1.654 0 3 1.346 3 3s-1.346 3-3 3z"
                               />
                             </svg>
-                            <span className="text-sm font-medium ml-3 lg:opacity-0 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">
+                            <span className="text-sm font-medium ml-3  lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">
                               Game controls
                             </span>
                           </div>
@@ -271,14 +286,14 @@ function Sidebar({ sidebarOpen, setSidebarOpen }) {
                           </div>
                         </div>
                       </Link>
-                      <div className="lg:hidden lg:sidebar-expanded:block 2xl:block">
+                      <div className=" lg:sidebar-expanded:block 2xl:block">
                         <ul className={`pl-9 mt-1 ${!open && "hidden"}`}>
                           <li className="mb-1 last:mb-0">
                             <Link
                               href="/dashboard/add-tournament"
                               className="block text-slate-200 truncate transition duration-150  hover:text-slate-200"
                             >
-                              <span className="text-sm font-medium lg:opacity-0 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200 text-[#f2f0ff]">
+                              <span className="text-sm font-medium  lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200 text-[#f2f0ff]">
                                 Add tournament
                               </span>
                             </Link>
@@ -288,7 +303,7 @@ function Sidebar({ sidebarOpen, setSidebarOpen }) {
                               href="/dashboard/add-family"
                               className="block text-slate-200 truncate transition duration-150  hover:text-slate-200"
                             >
-                              <span className="text-sm font-medium lg:opacity-0 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200 text-[#f2f0ff]">
+                              <span className="text-sm font-medium  lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200 text-[#f2f0ff]">
                                 Add family
                               </span>
                             </Link>
@@ -299,7 +314,7 @@ function Sidebar({ sidebarOpen, setSidebarOpen }) {
                               href="/dashboard/add-match"
                               className="block text-slate-200 truncate transition duration-150  hover:text-slate-200"
                             >
-                              <span className="text-sm font-medium lg:opacity-0 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200 text-[#f2f0ff]">
+                              <span className="text-sm font-medium  lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200 text-[#f2f0ff]">
                                 Add match
                               </span>
                             </Link>
@@ -309,7 +324,7 @@ function Sidebar({ sidebarOpen, setSidebarOpen }) {
                               href="/dashboard/list-matches"
                               className="block text-slate-200 truncate transition duration-150  hover:text-slate-200"
                             >
-                              <span className="text-sm font-medium lg:opacity-0 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200 text-[#f2f0ff]">
+                              <span className="text-sm font-medium  lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200 text-[#f2f0ff]">
                                 List Matches
                               </span>
                             </Link>
@@ -321,16 +336,16 @@ function Sidebar({ sidebarOpen, setSidebarOpen }) {
                 }}
               </SidebarLinkGroup>
 
-              {/* Messages */}
-              {/* <li
+              {/* register */}
+              <li
                 className={`px-3 py-2 rounded-sm mb-0.5 last:mb-0 ${
                   pathname.includes("messages") && "bg-slate-900"
                 }`}
               >
                 <Link
-                  href="/messages"
+                  href="/dashboard/register"
                   className={`block text-slate-200 truncate transition duration-150 ${
-                    pathname.includes("messages")
+                    pathname.includes("register")
                       ? "hover:text-slate-200"
                       : "hover:text-white"
                   }`}
@@ -340,7 +355,7 @@ function Sidebar({ sidebarOpen, setSidebarOpen }) {
                       <svg className="shrink-0 h-6 w-6" viewBox="0 0 24 24">
                         <path
                           className={`fill-current ${
-                            pathname.includes("messages")
+                            pathname.includes("register")
                               ? "text-indigo-500"
                               : "text-slate-600"
                           }`}
@@ -348,26 +363,25 @@ function Sidebar({ sidebarOpen, setSidebarOpen }) {
                         />
                         <path
                           className={`fill-current ${
-                            pathname.includes("messages")
+                            pathname.includes("register")
                               ? "text-indigo-300"
                               : "text-slate-400"
                           }`}
                           d="M11 1C5.477 1 1 4.582 1 9c0 1.797.75 3.45 2 4.785V19l4.833-2.416C8.829 16.85 9.892 17 11 17c5.523 0 10-3.582 10-8s-4.477-8-10-8z"
                         />
                       </svg>
-                      <span className="text-sm font-medium ml-3 lg:opacity-0 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">
-                        Messages
+                      <span className="text-sm font-medium ml-3  lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">
+                        Register User
                       </span>
                     </div>
-                    <div className="flex flex-shrink-0 ml-2">
+                    {/* <div className="flex flex-shrink-0 ml-2">
                       <span className="inline-flex items-center justify-center h-5 text-xs font-medium text-white bg-indigo-500 px-2 rounded">
                         4
                       </span>
-                    </div>
+                    </div> */}
                   </div>
                 </Link>
-              </li> */}
-              
+              </li>
             </ul>
           </div>
         </div>

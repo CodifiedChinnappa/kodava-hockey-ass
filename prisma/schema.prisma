@@ -177,10 +177,10 @@ enum Placements {
   FIRST
   SECOND
   THIRD
+  FOURTH
 }
 
 enum GoalType {
-  OWN
   PENALTY
   FIELD
 }
@@ -199,10 +199,11 @@ enum Pool {
 }
 
 enum Round {
-  DAY1
-  DAY2
-  DAY3
+  ROUND1
+  ROUND2
+  ROUND3
   PREQUARTER
+  QUARTER
   SEMIFINAL
   FINAL
 }

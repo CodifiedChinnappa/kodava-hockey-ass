@@ -2,9 +2,11 @@
 
 import { useState, useEffect } from "react";
 import { MatchCard } from "@/components/common/MatchCard";
+import { Loader } from "@/components/common/Loader";
 
 export const ListMatches = () => {
   const [matches, setMatches] = useState([]);
+  const [loading, setLoading] = useState(true); 
 
   useEffect(() => {
     const fetchMatches = async () => {
@@ -17,6 +19,8 @@ export const ListMatches = () => {
         setMatches(data.matches);
       } catch (error) {
         console.error("Error fetching matches:", error);
+      } finally {
+        setLoading(false);
       }
     };
 
@@ -28,11 +32,15 @@ export const ListMatches = () => {
       <h3 className="text-2xl font-extrabold text-indigo-50 leading-snug text-center capitalize mb-10">
         Todays matches
       </h3>
-      <div className="grid grid-cols-1  md:grid-cols-2 lg:grid-cols-3 gap-4 ">
-        {matches.map((match, index) => (
-          <MatchCard key={index} match={match} />
-        ))}
-      </div>
+      {loading ? (
+        <Loader />
+      ) : (
+        <div className="grid grid-cols-1  md:grid-cols-2 lg:grid-cols-3 gap-4 ">
+          {matches.map((match, index) => (
+            <MatchCard key={index} match={match} />
+          ))}
+        </div>
+      )}
     </div>
   );
 };
