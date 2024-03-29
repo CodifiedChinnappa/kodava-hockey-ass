@@ -17,7 +17,8 @@ export default async function RootLayout({ children }) {
     <SessionProvider session={session}>
       <Providers>
         <html lang="en">
-          <body className={inter.className}>{children}</body>
+          <body className={inter.className}>{children}
+          </body>
         </html>
       </Providers>
     </SessionProvider>

@@ -23,11 +23,12 @@ import {
 } from "@/components/ui/dialog";
 import { addFamily } from "@/actions/add-family";
 import { useFamilyContext } from "@/context/Families.provider";
+import { Pool, Round, Venues } from "@prisma/client";
+import { convertObjectToOptions } from "@/lib/utils";
 
 export const AddMatchForm = () => {
   const { families, fetchFamilies } = useFamilyContext();
   const user = useCurrentUser();
-
 
   const initialState = { createdBy: user.id };
 
@@ -110,7 +111,7 @@ export const AddMatchForm = () => {
 
               <CustomSelect
                 setValue={handleChange}
-                options={venueOptions}
+                options={convertObjectToOptions(Venues)}
                 name="venue"
               />
             </div>
@@ -139,7 +140,7 @@ export const AddMatchForm = () => {
               <CustomSelect
                 name="pool"
                 setValue={handleChange}
-                options={poolOptions}
+                options={convertObjectToOptions(Pool)}
               />
             </div>
             {/* //Round */}
@@ -149,7 +150,7 @@ export const AddMatchForm = () => {
               <CustomSelect
                 name="round"
                 setValue={handleChange}
-                options={roundOptions}
+                options={convertObjectToOptions(Round)}
               />
             </div>
             {/* //select teams 1 */}

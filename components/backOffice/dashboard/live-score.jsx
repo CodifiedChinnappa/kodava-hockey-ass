@@ -9,6 +9,7 @@ import { postGoal } from "@/actions/post-goal";
 import { updateWalkover } from "@/actions/team-walkover";
 import { updateGameDuration } from "@/actions/update-game-duration";
 import { updateGameStatus } from "@/actions/update-game-status";
+import { Loader } from "@/components/common/Loader";
 import RadioCard from "@/components/common/RadioCard";
 import { FormError } from "@/components/common/form-error";
 import { FormSuccess } from "@/components/common/form-success";
@@ -43,7 +44,9 @@ export const LiveScore = () => {
   useEffect(() => {
     const fetchMatch = async () => {
       try {
-        const response = await fetch(`/api/matches/${id}`);
+        const response = await fetch(`/api/matches/${id}`, {
+          cache: "no-store",
+        });
         if (!response.ok) {
           throw new Error("Failed to fetch match");
         }
@@ -318,7 +321,7 @@ export const LiveScore = () => {
   };
 
   if (isLoading) {
-    return <p>Loading...</p>;
+    return <Loader/>;
   }
 
   return (

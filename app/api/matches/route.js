@@ -14,7 +14,6 @@ export async function GET() {
         },
       },
     });
-console.log(matches);
     return NextResponse.json({matches});
   } catch (error) {
     console.error("Error fetching matches:", error);
