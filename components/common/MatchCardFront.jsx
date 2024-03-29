@@ -7,7 +7,6 @@ export const MatchCardFront = ({ match }) => {
 
   // Format scheduledOn date
   const formattedScheduledOn = format(new Date(scheduledOn), "MM/dd/yyyy");
-  console.log(match);
   return (
     <div className="flex flex-col justify-center antialiased  text-gray-600  p-4">
       <div className="">

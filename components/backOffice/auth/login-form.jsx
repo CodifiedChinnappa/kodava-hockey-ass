@@ -49,7 +49,7 @@ export const LoginForm = () => {
           if (data?.error) {
             form.reset();
             setError(data.error);
-            router.push(callbackUrl)
+            router.push(callbackUrl || "/dashboard")
           }
 
           if (data?.success) {

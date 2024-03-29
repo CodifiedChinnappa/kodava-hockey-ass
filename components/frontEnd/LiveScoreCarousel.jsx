@@ -7,21 +7,23 @@ function LiveScoreCarousel() {
   const [matches, setMatches] = useState([]);
 
   useEffect(() => {
-    const fetchMatches = async () => {
-      try {
-        const response = await fetch("/api/matches");
-        if (!response.ok) {
-          throw new Error("Failed to fetch matches");
-        }
-        const data = await response.json();
-        setMatches(data.matches);
-      } catch (error) {
-        console.error("Error fetching matches:", error);
-      }
-    };
-
+   
     fetchMatches();
-  }, []);
+  },[]);
+
+  const fetchMatches = async () => {
+    try {
+      const response = await fetch("/api/matches");
+      if (!response.ok) {
+        throw new Error("Failed to fetch matches");
+      }
+      const data = await response.json();
+      setMatches(data.matches);
+    } catch (error) {
+      console.error("Error fetching matches:", error);
+    }
+  };
+
 
   return (
     <div>
