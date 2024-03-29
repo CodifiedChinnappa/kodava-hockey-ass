@@ -111,7 +111,7 @@ export const Footer = () => {
                 target="_blank"
               >
                 {" "}
-                Kundiyolanda JS by{" "}
+                Kundiyolanda by{" "}
               </a>
               <a href="" className="text-blueGray-500 hover:text-blueGray-800">
                 RemoteDev

@@ -4,7 +4,7 @@ import { useForm } from "react-hook-form";
 import { useState, useTransition } from "react";
 import { useSearchParams } from "next/navigation";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useRouter } from 'next/navigation'
+import { useRouter } from "next/navigation";
 
 import {
   Form,
@@ -21,12 +21,12 @@ import { FormSuccess } from "@/components/common/form-success";
 import { LoginSchema } from "@/schemas";
 import { login } from "@/actions/login";
 import { DEFAULT_LOGIN_REDIRECT } from "@/routes";
+import Link from "next/link";
 
 export const LoginForm = () => {
-  const router =useRouter()
+  const router = useRouter();
   const searchParams = useSearchParams();
   const callbackUrl = searchParams.get("callbackUrl");
-
 
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
@@ -49,7 +49,7 @@ export const LoginForm = () => {
           if (data?.error) {
             form.reset();
             setError(data.error);
-            router.push(callbackUrl || "/dashboard")
+            router.push(callbackUrl || "/dashboard");
           }
 
           if (data?.success) {
@@ -201,6 +201,12 @@ export const LoginForm = () => {
               </form>
             </Form>
           </div>
+        </div>
+        <div className="text-center mt-5">
+          Go to {" "}
+          <Link className=" text-blue-500 font-semibold hover:underline" href="/">
+            home
+          </Link>
         </div>
         {/* /login */}
       </div>
