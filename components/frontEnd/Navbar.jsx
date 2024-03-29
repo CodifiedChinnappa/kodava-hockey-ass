@@ -5,6 +5,10 @@ import { LoginButton } from "../backOffice/auth/login-button";
 import { Button } from "../ui/button";
 import { cn } from "@/lib/utils";
 
+import logo from "../../public/KHC.png";
+import Image from "next/image";
+import Link from "next/link";
+
 export const Navbar = () => {
   const [open, setOpen] = useState(false);
 
@@ -12,9 +16,9 @@ export const Navbar = () => {
     <>
       {/* component */}
       <nav className="relative  py-4 container mx-auto px-4 flex justify-between items-center bg-white">
-        <a className="text-3xl font-bold leading-none" href="#">
-          Kundiyolanda
-        </a>
+        <Link href="/">
+          <Image src={logo} alt="Logo" width={60} height={60} />
+        </Link>
         <div className="lg:hidden">
           <button
             className="flex items-center text-blue-600 p-3"
@@ -73,48 +77,7 @@ export const Navbar = () => {
               />
             </svg>
           </li>
-          <li>
-            <a className="text-sm text-gray-400 hover:text-gray-500" href="#">
-              Services
-            </a>
-          </li>
-          <li className="text-gray-300">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              stroke="currentColor"
-              className="w-4 h-4 current-fill"
-              viewBox="0 0 24 24"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M12 5v0m0 7v0m0 7v0m0-13a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2z"
-              />
-            </svg>
-          </li>
-          <li>
-            <a className="text-sm text-gray-400 hover:text-gray-500" href="#">
-              Pricing
-            </a>
-          </li>
-          <li className="text-gray-300">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              stroke="currentColor"
-              className="w-4 h-4 current-fill"
-              viewBox="0 0 24 24"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M12 5v0m0 7v0m0 7v0m0-13a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2z"
-              />
-            </svg>
-          </li>
+
           <li>
             <a className="text-sm text-gray-400 hover:text-gray-500" href="#">
               Contact
@@ -134,9 +97,9 @@ export const Navbar = () => {
         <div className="navbar-backdrop fixed inset-0 bg-gray-800 opacity-25" />
         <nav className="fixed top-0 left-0 bottom-0 flex flex-col w-5/6 max-w-sm py-6 px-6 bg-white border-r overflow-y-auto">
           <div className="flex items-center mb-8">
-            <a className="mr-auto text-3xl font-bold leading-none" href="#">
-              Kundiyolanda
-            </a>
+            <Link className="mr-auto" href="/">
+              <Image src={logo} alt="Logo" width={60} height={60} />
+            </Link>
             <button onClick={() => setOpen(!open)}>
               <svg
                 className="h-6 w-6 text-gray-400 cursor-pointer hover:text-gray-500"
@@ -172,22 +135,7 @@ export const Navbar = () => {
                   About Us
                 </a>
               </li>
-              <li className="mb-1">
-                <a
-                  className="block p-4 text-sm font-semibold text-gray-400 hover:bg-blue-50 hover:text-blue-600 rounded"
-                  href="#"
-                >
-                  Services
-                </a>
-              </li>
-              <li className="mb-1">
-                <a
-                  className="block p-4 text-sm font-semibold text-gray-400 hover:bg-blue-50 hover:text-blue-600 rounded"
-                  href="#"
-                >
-                  Pricing
-                </a>
-              </li>
+
               <li className="mb-1">
                 <a
                   className="block p-4 text-sm font-semibold text-gray-400 hover:bg-blue-50 hover:text-blue-600 rounded"

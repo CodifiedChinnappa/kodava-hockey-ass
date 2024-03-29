@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { MatchCardFront } from "../common/MatchCardFront";
+import { MatchCardFront } from "./MatchCardFront";
 import { Loader } from "../common/Loader";
 
 function LiveScoreCarousel() {

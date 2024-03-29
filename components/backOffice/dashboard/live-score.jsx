@@ -339,7 +339,7 @@ export const LiveScore = () => {
             {/* //game control */}
 
             <div className="mt-10">
-              <hr class="my-5 h-0.5 border-t-0 bg-neutral-100 dark:bg-white/10" />
+              <hr className="my-5 h-0.5 border-t-0 bg-neutral-100 dark:bg-white/10" />
 
               <div className="flex flex-col items-center  space-x-8">
                 <h3 className="font-sans text-2xl antialiased font-semibold leading-tight tracking-normal text-inherit text-white">
@@ -351,7 +351,7 @@ export const LiveScore = () => {
                   defaultSelected={match.status}
                 />
               </div>
-              <hr class="my-5 h-0.5 border-t-0 bg-neutral-100 dark:bg-white/10" />
+              <hr className="my-5 h-0.5 border-t-0 bg-neutral-100 dark:bg-white/10" />
               <div className="flex  flex-col items-center   space-x-8 ">
                 <h3 className="font-sans text-2xl antialiased font-semibold leading-tight tracking-normal text-inherit text-white">
                   Duration
@@ -363,7 +363,7 @@ export const LiveScore = () => {
                 />
               </div>
             </div>
-            <hr class="my-5 h-0.5 border-t-0 bg-neutral-100 dark:bg-white/10" />
+            <hr className="my-5 h-0.5 border-t-0 bg-neutral-100 dark:bg-white/10" />
 
             <div>
               <div className="grid sm:grid-cols-12 md:grid-cols-2 gap-36 mt-8 justify-center">
@@ -499,7 +499,7 @@ export const LiveScore = () => {
                           Miss
                         </button>
                       </div>
-                      <hr class="my-7 h-0.5 border-t-0 bg-neutral-100 dark:bg-black" />
+                      <hr className="my-7 h-0.5 border-t-0 bg-neutral-100 dark:bg-black" />
 
                       <div className="flex flex-col justify-evenly space-y-2 my-5">
                         {team?.penaltyShoot.map((item, i) => (
@@ -532,7 +532,7 @@ export const LiveScore = () => {
                 ))}
               </div>
             </div>
-            <hr class="my-7 h-0.5 border-t-0 bg-neutral-100 dark:bg-white/10" />
+            <hr className="my-7 h-0.5 border-t-0 bg-neutral-100 dark:bg-white/10" />
             <div>
               {match?.status !== "PLAYED" && (
                 <button

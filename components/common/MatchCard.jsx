@@ -104,7 +104,7 @@ export const MatchCard = ({ match }) => {
                     key={team.id}
                   >
                     <h1 className="label">{team.families.familyName}</h1>
-                    <hr class="my-1 h-0.5 border-t-0 bg-neutral-100 dark:bg-black" />
+                    <hr className="my-1 h-0.5 border-t-0 bg-neutral-100 dark:bg-black" />
                     <h1 className="label">goals ({team.goals?.length})</h1>
                     {team.goals.map((scorer, index) => (
                       <div
@@ -119,7 +119,7 @@ export const MatchCard = ({ match }) => {
                         <h3 className="text-sm">{scorer?.type}</h3>
                       </div>
                     ))}
-                    <hr class="my-1 h-0.5 border-t-0 bg-neutral-100 dark:bg-black" />
+                    <hr className="my-1 h-0.5 border-t-0 bg-neutral-100 dark:bg-black" />
                     <div>
                       <h1 className="label">shootout ({team.goals?.length})</h1>
                       {team?.penaltyShoot.map((item, i) => (
