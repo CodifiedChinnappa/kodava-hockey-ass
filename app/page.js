@@ -10,9 +10,8 @@ export default function Home() {
           <Button variant="secondary" size="lg">
             Sign in
           </Button>
-
-          <LiveScoreCarousel />
         </LoginButton>
+        <LiveScoreCarousel />
       </div>
     </main>
   );
