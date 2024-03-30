@@ -4,23 +4,21 @@ import { cn } from "@/lib/utils";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 
-import img1 from "../../public/img1.jpg";
-import img2 from "../../public/img2.jpg";
-import img3 from "../../public/img3.jpg";
+
 
 const imageSlides = [
   {
-    url: img1,
+    url: src("../../public/img1.jpg"),
     title: "Kundiyolanda",
     body: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Vitae velit dolorem at repudiandae ut .",
   },
   {
-    url: img2,
+    url: src("../../public/img2.jpg"),
     title: "Kundiyolanda",
     body: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Vitae velit dolorem at repudiandae ut .",
   },
   {
-    url: img3,
+    url: src("../../public/img2.jpg"),
     title: "Kundiyolanda",
     body: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Vitae velit dolorem at repudiandae ut .",
   },
