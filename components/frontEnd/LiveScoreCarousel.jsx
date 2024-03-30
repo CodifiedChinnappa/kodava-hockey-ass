@@ -33,6 +33,12 @@ function LiveScoreCarousel() {
       <h3 className="text-xl lg:text-4xl font-black text-gray-900  mb-10 text-center capitalize">
         Todays live matches
       </h3>
+
+      {matches.length === 0 && (
+        <div className="flex justify-center px-10 py-10">
+          <p className="text-center font-semibold">No matches scheduled, please reloads the page!</p>
+        </div>
+      )}
       {loading ? (
         <Loader />
       ) : (

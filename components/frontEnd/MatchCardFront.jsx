@@ -7,6 +7,7 @@ import {
   Dialog,
   DialogContent,
   DialogDescription,
+  DialogFooter,
   DialogHeader,
   DialogTitle,
   DialogTrigger,
@@ -16,8 +17,6 @@ import { generateCommentary } from "@/lib/utils";
 
 export const MatchCardFront = ({ match }) => {
   const { id, venue, scheduledOn, pool, round, participants } = match;
-
-  console.log(match);
 
   // Format scheduledOn date
   const formattedScheduledOn = format(new Date(scheduledOn), "MM/dd/yyyy");
@@ -295,6 +294,9 @@ export const MatchCardFront = ({ match }) => {
               </div>
             </div>
           </div>
+          <DialogFooter>
+            <Button className="bg-blue-400">Refresh</Button>
+          </DialogFooter>
         </DialogContent>
       </Dialog>
     </div>

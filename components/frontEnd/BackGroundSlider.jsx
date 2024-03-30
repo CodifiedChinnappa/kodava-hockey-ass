@@ -1,6 +1,7 @@
 "use client";
 
 import { cn } from "@/lib/utils";
+import Image from "next/image";
 import { useEffect, useState } from "react";
 
 const imageSlides = [
@@ -31,18 +32,18 @@ export const BackGroundSlider = () => {
     return () => clearInterval(interval);
   });
 
-  const bgImageStyle = {
-    backgroundImage: `url(${imageSlides[currentState].url})`,
-    backgroundPosition: "center",
-    backgroundSize: "cover",
-    height: "91vh",
-    width: "100%",
-  };
   return (
     <div className="h-full relative ">
-      <div style={bgImageStyle}></div>
-      <div className="w-full h-[91vh] sm:m-auto absolute z-auto top-0 left-0 bg-gradient-to-r from-cyan-600 "></div>
-      <div className=" sm:w-full absolute w-[280px]  md:w-[600px] z-auto top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 sm:top-1/2 sm:left-1/4 flex flex-col space-y-5">
+      <div style={{ width: "100vw", height: "91vh" }}>
+        <Image
+          src={imageSlides[currentState].url}
+          layout="fill"
+          style={{ objectFit: "cover", width: "100%", height: "100%" }}
+          alt="name"
+        />
+      </div>
+
+      <div className="bg-white p-3 sm:w-full absolute w-[280px]  md:w-[600px] z-auto top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 sm:top-1/2 sm:left-1/4 flex flex-col space-y-5">
         <div>
           <h1 className="text-lg md:text-4xl">
             {imageSlides[currentState].title}{" "}
