@@ -4,21 +4,24 @@ import { cn } from "@/lib/utils";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 
-
+//import images
+import image1 from "../../public/img1.jpg";
+import image2 from "../../public/img2.jpg";
+import image3 from "../../public/img3.jpg";
 
 const imageSlides = [
   {
-    url: "../../public/img1.jpg",
+    url: image1,
     title: "Kundiyolanda",
     body: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Vitae velit dolorem at repudiandae ut .",
   },
   {
-    url: "../../public/img2.jpg",
+    url: image2,
     title: "Kundiyolanda",
     body: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Vitae velit dolorem at repudiandae ut .",
   },
   {
-    url: "../../public/img2.jpg",
+    url: image3,
     title: "Kundiyolanda",
     body: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Vitae velit dolorem at repudiandae ut .",
   },
@@ -46,7 +49,6 @@ export const BackGroundSlider = () => {
       </div>
 
       <div class="bg-white opacity-75 p-1 md:p-3 sm:w-full absolute w-[280px] md:w-[600px] z-auto bottom-0 left-1/2 transform -translate-x-1/2 -translate-y-1/2 sm:top-auto sm:left-1/4 md:left-2/4 flex flex-col space-y-5">
-
         <div>
           <h1 className="text-lg md:text-4xl">
             {imageSlides[currentState].title}{" "}
