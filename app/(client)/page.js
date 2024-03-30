@@ -1,4 +1,4 @@
-import { SponsorsScroll } from "@/components/common/SponsorsSroll";
+import { SponsorsScroll } from "@/components/common/SponsorsScroll";
 import { BackGroundSlider } from "@/components/frontEnd/BackGroundSlider";
 import LiveScoreCarousel from "@/components/frontEnd/LiveScoreCarousel";
 import { TiesDownload } from "@/components/frontEnd/TiesDownload";
@@ -55,7 +55,8 @@ export default function Home() {
         <Welcome />
         <TiesDownload />
         <LiveScoreCarousel />
-        <SponsorsScroll images={images} speed={50000} />
+
+        <SponsorsScroll images={images} speed={20000}/>
       </div>
     </main>
   );

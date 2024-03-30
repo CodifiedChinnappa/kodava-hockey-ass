@@ -90,6 +90,7 @@ body,
 
 .banner-wrapper .wrapper {
   display: flex;
+  justify-content: space-around;
 }
 
 .banner-wrapper .wrapper .images {
@@ -110,3 +111,11 @@ body,
   }
 }
 /* //CustomScroll-end */
+
+.hide-scroll-bar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+.hide-scroll-bar::-webkit-scrollbar {
+  display: none;
+}

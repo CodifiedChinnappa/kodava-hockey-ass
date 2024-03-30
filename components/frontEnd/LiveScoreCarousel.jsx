@@ -45,10 +45,12 @@ function LiveScoreCarousel() {
               </p>
             </div>
           ) : (
-            <div className="grid grid-cols-1  md:grid-cols-2 lg:grid-cols-3 gap-4  justify-items-center">
-              {matches.map((match, index) => (
-                <MatchCardFront key={index} match={match} />
-              ))}
+            <div className="flex justify-center overflow-x-scroll rounded-lg p-6 lg:overflow-visible ">
+              <ul >
+                {matches.map((match, index) => (
+                  <MatchCardFront match={match} key={index} />
+                ))}
+              </ul>
             </div>
           )}
         </>

@@ -228,7 +228,6 @@ export const LiveScore = () => {
     setError("");
     setSuccess("");
     setIsLoading(true);
-    // console.log(matchId, status);
 
     startTransition(() => {
       updateGameStatus({ matchId, status })
@@ -321,7 +320,7 @@ export const LiveScore = () => {
   };
 
   if (isLoading) {
-    return <Loader/>;
+    return <Loader />;
   }
 
   return (
@@ -333,55 +332,59 @@ export const LiveScore = () => {
       <div className="grid w-full place-items-center overflow-x-scroll rounded-lg p-6 lg:overflow-visible ">
         {match && (
           <div>
-            <h1 className="font-sans text-5xl antialiased font-semibold leading-tight tracking-normal text-inherit text-center text-white">
+            <h1 className="font-sans text-xl md:text-5xl antialiased font-semibold leading-tight tracking-normal text-inherit text-center text-white">
               {`${match?.participants[0]?.families.familyName} vs ${match?.participants[1]?.families.familyName}`}
             </h1>
             {/* //game control */}
+            {match?.status !== "PLAYED" && (
+              <div className="mt-10">
+                <hr className="my-5 h-0.5 border-t-0 bg-neutral-100 dark:bg-white/10" />
 
-            <div className="mt-10">
-              <hr className="my-5 h-0.5 border-t-0 bg-neutral-100 dark:bg-white/10" />
+                <div className="flex flex-col items-center  space-x-8">
+                  <h3 className="font-sans text-2xl antialiased font-semibold leading-tight tracking-normal text-inherit text-white">
+                    Status
+                  </h3>
+                  <RadioCard
+                    options={convertObjectToOptions(Status)}
+                    onChange={(value) => onGameStatusChange(match.id, value)}
+                    defaultSelected={match.status}
+                  />
+                </div>
+                <hr className="my-5 h-0.5 border-t-0 bg-neutral-100 dark:bg-white/10" />
+                <div className="flex  flex-col items-center   space-x-8 ">
+                  <h3 className="font-sans text-2xl antialiased font-semibold leading-tight tracking-normal text-inherit text-white">
+                    Duration
+                  </h3>
+                  <RadioCard
+                    options={convertObjectToOptions(Duration)}
+                    onChange={(value) => onGameDuration(match.id, value)}
+                    defaultSelected={match.duration}
+                  />
+                </div>
+              </div>
+            )}
 
-              <div className="flex flex-col items-center  space-x-8">
-                <h3 className="font-sans text-2xl antialiased font-semibold leading-tight tracking-normal text-inherit text-white">
-                  Status
-                </h3>
-                <RadioCard
-                  options={convertObjectToOptions(Status)}
-                  onChange={(value) => onGameStatusChange(match.id, value)}
-                  defaultSelected={match.status}
-                />
-              </div>
-              <hr className="my-5 h-0.5 border-t-0 bg-neutral-100 dark:bg-white/10" />
-              <div className="flex  flex-col items-center   space-x-8 ">
-                <h3 className="font-sans text-2xl antialiased font-semibold leading-tight tracking-normal text-inherit text-white">
-                  Duration
-                </h3>
-                <RadioCard
-                  options={convertObjectToOptions(Duration)}
-                  onChange={(value) => onGameDuration(match.id, value)}
-                  defaultSelected={match.duration}
-                />
-              </div>
-            </div>
             <hr className="my-5 h-0.5 border-t-0 bg-neutral-100 dark:bg-white/10" />
 
             <div>
-              <div className="grid sm:grid-cols-12 md:grid-cols-2 gap-36 mt-8 justify-center">
+              <div className="grid xs:grid-cols-12 md:grid-cols-2 gap-16 mt-8 justify-center">
                 {match.participants.map((team, index) => (
                   <div
                     key={index}
-                    className="text-black bg-white rounded shadow-lg p-10 space-y-5"
+                    className="text-black bg-white rounded shadow-lg p-4 md:p-10 space-y-5"
                   >
-                    <h1 className="font-sans text-center text-5xl antialiased font-semibold leading-tight tracking-normal mb-5 ">
+                    <h1 className="font-sans text-center text-xl md:text-5xl antialiased font-semibold leading-tight tracking-normal mb-5 ">
                       {`${match?.participants[
                         index
                       ]?.families.familyName.toUpperCase()} `}
                     </h1>
                     <div className="flex flex-col space-y-5 border p-5">
                       <div>
-                        <h6 className="pb-2 text-xl font-semibold text-center">
+                        <h6 className="pb-2 text-md md:text-xl  font-semibold text-center">
                           Add score{" "}
-                          <p className="text-sm">(keep name unique)</p>
+                          <p className="text-xs md:text-sm">
+                            (keep name unique)
+                          </p>
                         </h6>
 
                         <CreatableSelect
@@ -439,44 +442,43 @@ export const LiveScore = () => {
                       </div>
                       <button
                         type="button"
-                        className="bg-blue-400 rounded-sm p-3 font-bold"
+                        className="bg-blue-400 rounded-sm p-2 md:p-3 font-bold"
                         onClick={() => onPostGoal(team.id, index)}
                       >
                         Add Goal
                       </button>
 
-                    {/* //ScoreCard */}
-                    <div className="border-t-2 pt-5">
-                      <h6 className="pb-2 text-xl font-semibold text-center">
-                        Goals: ({team.goals.length})
-                      </h6>
-                      <div className="flex flex-col justify-evenly space-y-2">
-                        {team.goals.map((scorer, index) => (
-                          <div
-                            key={index}
-                            className="flex justify-evenly space-x-3  "
-                          >
-                            <h3>{index + 1})</h3>
-                            <h3>{scorer?.players[0].playerName}</h3>
-                            <h3> {scorer?.minute} min </h3>
-                            <h3> {scorer?.type} </h3>
-                            <button
-                              type="button"
-                              className="bg-red-500 p-1 text-white rounded-sm"
-                              onClick={() => onDeleteGoal(team.id, scorer.id)}
+                      {/* //ScoreCard */}
+                      <div className="border-t-2 pt-5">
+                        <h6 className="pb-2 text-md md:text-xl font-semibold text-center">
+                          Goals: ({team.goals.length})
+                        </h6>
+                        <div className="flex flex-col justify-evenly space-y-2">
+                          {team.goals.map((scorer, index) => (
+                            <div
+                              key={index}
+                              className="flex justify-evenly space-x-3  "
                             >
-                              Delete
-                            </button>
-                          </div>
-                        ))}
+                              <h3>{index + 1})</h3>
+                              <h3>{scorer?.players[0].playerName}</h3>
+                              <h3> {scorer?.minute} min </h3>
+                              <h3> {scorer?.type} </h3>
+                              <button
+                                type="button"
+                                className="bg-red-500 p-1 text-white rounded-sm"
+                                onClick={() => onDeleteGoal(team.id, scorer.id)}
+                              >
+                                Delete
+                              </button>
+                            </div>
+                          ))}
+                        </div>
                       </div>
                     </div>
-                    </div>
-
 
                     {/* //shootout */}
                     <div className="border p-5">
-                      <h6 className="pb-2 text-xl font-semibold text-center">
+                      <h6 className="pb-2 text-md md:text-xl  font-semibold text-center">
                         Shootout:(
                         {
                           team?.penaltyShoot.filter((item) => item === true)

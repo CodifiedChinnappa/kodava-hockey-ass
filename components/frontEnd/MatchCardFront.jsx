@@ -30,9 +30,7 @@ export const MatchCardFront = ({ match }) => {
       const data = await response.json();
       setMatchData(data[0]);
       setIsLoading(false);
-      setError(null);
     } catch (error) {
-      setError("Failed to fetch match");
       setIsLoading(false);
     }
   }, [id]);
@@ -49,7 +47,7 @@ export const MatchCardFront = ({ match }) => {
   );
 
   return (
-    <div className="relative bg-white  rounded-lg  p-5  shadow-2xl max-w-xs text-black hover:scale-105 transition-all duration-300">
+    <div className="w-52 relative bg-white  rounded-lg  p-5  shadow-lg  text-black hover:scale-105 transition-all duration-300">
       {/* Illustration */}
       <svg
         className="absolute top-0 right-0"

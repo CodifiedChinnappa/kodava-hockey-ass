@@ -34,7 +34,7 @@ export const BackGroundSlider = () => {
 
   return (
     <div className="h-full relative ">
-      <div  className="w-full h-[81vh] md:h-[89vh]">
+      <div  className="w-full h-[81vh] md:h-[89vh] ">
         <Image
           src={imageSlides[currentState].url}
           layout="fill"
@@ -43,15 +43,15 @@ export const BackGroundSlider = () => {
         />
       </div>
 
-      <div class="bg-white opacity-75 p-1 md:p-3 sm:w-full absolute w-[280px] md:w-[600px] z-auto bottom-0 left-1/2 transform -translate-x-1/2 -translate-y-1/2 sm:top-auto sm:left-1/4 md:left-2/4 flex flex-col space-y-5">
-        <div>
+      <div class=" p-1 md:p-3 sm:w-full absolute w-[280px] md:w-[600px] z-auto bottom-0 left-1/2 transform -translate-x-1/2 -translate-y-1/2 sm:top-auto sm:left-1/4 md:left-2/4 flex flex-col space-y-5">
+        {/* <div>
           <h1 className="text-lg md:text-4xl">
             {imageSlides[currentState].title}{" "}
           </h1>
           <p className="text-sm md:text-xl">
             {imageSlides[currentState].body}{" "}
           </p>
-        </div>
+        </div> */}
         <div className="flex items-center justify-center space-x-3 ">
           {imageSlides.map((slide, index) => (
             <span
@@ -61,7 +61,7 @@ export const BackGroundSlider = () => {
                 "text-1xl w-[45px] h-2 rounded-xl cursor-pointer shadow-sm",
                 {
                   "bg-red-500": index === currentState,
-                  "bg-slate-300": index !== currentState,
+                  "bg-white": index !== currentState,
                 }
               )}
             />
