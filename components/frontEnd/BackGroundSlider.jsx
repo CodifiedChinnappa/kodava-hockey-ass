@@ -34,7 +34,7 @@ export const BackGroundSlider = () => {
 
   return (
     <div className="h-full relative ">
-      <div style={{ width: "100vw", height: "91vh" }}>
+      <div  className="w-full h-[81vh] md:h-[89vh]">
         <Image
           src={imageSlides[currentState].url}
           layout="fill"

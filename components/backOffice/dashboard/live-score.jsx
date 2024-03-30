@@ -31,7 +31,6 @@ const initialState = {
 export const LiveScore = () => {
   const { id } = useParams();
   const user = useCurrentUser();
-  const [match, setMatch] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
   const [success, setSuccess] = useState("");

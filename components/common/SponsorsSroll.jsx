@@ -9,7 +9,7 @@ export function ImageSection({ images, speed }) {
   return (
     <div className="images" style={imagesStyle}>
       {images.map(({ src, name }) => (
-        <Image src={src} alt={name} width={300} height={300} key={src} />
+        <Image src={src} alt={name} width={300} height={300} key={name} />
       ))}
     </div>
   );

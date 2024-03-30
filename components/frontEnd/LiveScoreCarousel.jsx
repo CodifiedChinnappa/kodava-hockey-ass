@@ -31,32 +31,39 @@ function LiveScoreCarousel() {
   return (
     <div className="pt-20  bg-orange-200">
       <h3 className="text-xl lg:text-4xl font-black text-gray-900  mb-10 text-center capitalize">
-        Todays live matches
+        Today&apos;s live matches
       </h3>
 
-      {matches.length === 0 && (
-        <div className="flex justify-center px-10 py-10">
-          <p className="text-center font-semibold">No matches scheduled, please reloads the page!</p>
-        </div>
-      )}
       {loading ? (
-        <Loader />
+        <div className="flex justify-center">Loading matches...</div>
       ) : (
-        <div className="grid grid-cols-1  md:grid-cols-2 lg:grid-cols-3 gap-4  justify-items-center">
-          {matches.map((match, index) => (
-            <MatchCardFront key={index} match={match} />
-          ))}
-        </div>
+        <>
+          {matches.length === 0 ? (
+            <div className="flex justify-center ">
+              <p className="text-center font-semibold">
+                No matches scheduled, please reload the page!
+              </p>
+            </div>
+          ) : (
+            <div className="grid grid-cols-1  md:grid-cols-2 lg:grid-cols-3 gap-4  justify-items-center">
+              {matches.map((match, index) => (
+                <MatchCardFront key={index} match={match} />
+              ))}
+            </div>
+          )}
+        </>
       )}
 
-      <div className="flex justify-end px-10 py-10">
+      <div className="flex justify-center md:justify-end px-10 py-10">
         <Link
-          className=" w-fit border border-blue-300 text-black p-2 lg:p-4  rounded-md  shadow-md hover:bg-blue-200 transition duration-300"
-          href="https://kundyolanda.com/wp-content/uploads/2024/03/KHC2024-Invitation.pdf"
-          download
-          target="_blank"
+          href=""
+          className="group relative grid overflow-hidden rounded-full px-4 py-3 shadow-[0_1000px_0_0_hsl(0_0%_20%)_inset] transition-colors duration-200"
         >
-          View Played Matches...
+          <span>
+            <span className="spark mask-gradient animate-flip before:animate-rotate absolute inset-0 h-[100%] w-[100%] overflow-hidden rounded-full [mask:linear-gradient(white,_transparent_50%)] before:absolute before:aspect-square before:w-[200%] before:rotate-[-90deg] before:bg-[conic-gradient(from_0deg,transparent_0_340deg,white_360deg)] before:content-[''] before:[inset:0_auto_auto_50%] before:[translate:-50%_-15%]" />
+          </span>
+          <span className="backdrop absolute inset-[1px] rounded-full bg-black transition-colors duration-200 group-hover:bg-slate-800" />
+          <span className="text z-10 text-[#cbd5e1]">Played matches -&gt;</span>
         </Link>
       </div>
     </div>

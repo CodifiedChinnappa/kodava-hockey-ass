@@ -1,12 +1,10 @@
-import React from "react";
+"use client";
+import React, { useCallback, useEffect, useState } from "react";
 import { format } from "date-fns";
-import Link from "next/link";
 import Image from "next/image";
-import { ChevronRightIcon } from "@radix-ui/react-icons";
 import {
   Dialog,
   DialogContent,
-  DialogDescription,
   DialogFooter,
   DialogHeader,
   DialogTitle,
@@ -16,12 +14,42 @@ import { Button } from "../ui/button";
 import { generateCommentary } from "@/lib/utils";
 
 export const MatchCardFront = ({ match }) => {
-  const { id, venue, scheduledOn, pool, round, participants } = match;
+  const [matchData, setMatchData] = useState(match);
+  const [isLoading, setIsLoading] = useState(false);
+  const { id, venue, scheduledOn, pool, round, participants } = matchData;
+
+  const handleRefresh = useCallback(async () => {
+    try {
+      setIsLoading(true);
+      const response = await fetch(`/api/matches/${id}`, {
+        cache: "no-store",
+      });
+      if (!response.ok) {
+        throw new Error("Failed to fetch match");
+      }
+      const data = await response.json();
+      setMatchData(data[0]);
+      setIsLoading(false);
+      setError(null);
+    } catch (error) {
+      setError("Failed to fetch match");
+      setIsLoading(false);
+    }
+  }, [id]);
+
+  useEffect(() => {
+    const interval = setInterval(handleRefresh, 10 * 60 * 1000); // 10 minutes
+    return () => clearInterval(interval);
+  }, [handleRefresh]);
 
   // Format scheduledOn date
-  const formattedScheduledOn = format(new Date(scheduledOn), "MM/dd/yyyy");
+  const formattedScheduledOn = format(
+    new Date(scheduledOn),
+    "MM/dd/yy hh:mm a"
+  );
+
   return (
-    <div className="relative bg-indigo-700  rounded-lg  p-5  shadow-lg max-w-xs">
+    <div className="relative bg-white  rounded-lg  p-5  shadow-2xl max-w-xs text-black hover:scale-105 transition-all duration-300">
       {/* Illustration */}
       <svg
         className="absolute top-0 right-0"
@@ -89,132 +117,92 @@ export const MatchCardFront = ({ match }) => {
       </svg>
       {/* Card content */}
       <div className="relative ">
-        <div className="flex flex-col  justify-center p-2 mb-5">
-          <div className="text-xs font-bold uppercase text-green-400 tracking-widest mb-2">
-            Sponsors
-          </div>
-          <div className="flex justify-center">
-            <Image
-              src="https://kundyolanda.com/wp-content/uploads/2024/03/asset-1.png"
-              alt="dcc"
-              width={200}
-              height={200}
-            />
-          </div>
+        <div className="flex flex-col  justify-center p-2">
+          <Image
+            src="https://kundyolanda.com/wp-content/uploads/2024/03/asset-1.png"
+            alt="dcc"
+            width={200}
+            height={200}
+          />
         </div>
+
         <div>
-          <h3 className="text-1xl font-extrabold text-indigo-50 leading-snug mb-2">
-            {`${participants[0]?.families?.familyName?.toUpperCase()}(${
-              participants[0]?.goals?.length
-            }) /  
-            ${participants[1]?.families?.familyName?.toUpperCase()} (${
-              participants[1]?.goals?.length
-            })`}
+          <h3 className="text-1xl text-center font-extrabold text-indigo-700 leading-snug mb-2">
+            <span>
+              {`${participants[0]?.families?.familyName?.toUpperCase()} `}
+              <span className="bg-red-500 px-1 rounded text-white">
+                ({participants[0]?.goals?.length})
+              </span>
+            </span>
+            <br />
+            <span className="text-indigo-500">vs</span>
+            <br />
+            <span>
+              {`${participants[1]?.families?.familyName?.toUpperCase()} `}
+              <span className="bg-red-500 px-1 rounded text-white">
+                ({participants[1]?.goals?.length})
+              </span>
+            </span>
           </h3>
-
-          <div className="mb-2">
-            <p className="text-indigo-200">
-              {formattedScheduledOn} | {venue} | {round}
-            </p>
-            <p className="text-indigo-200">Status: {match.status}</p>
-            <p className="text-indigo-200">Duration: {match.duration}</p>
-          </div>
-          {/* //game details */}
-
-          <div>
-            {match.status !== "UPCOMING" &&
-              match.participants.map((team) => (
-                <div
-                  className="flex flex-col mb-4 bg-white text-black p-2 rounded-sm"
-                  key={team.id}
-                >
-                  <h1 className="label text-center capitalize">
-                    {team.families.familyName}
-                  </h1>
-                  <hr className="my-1 h-0.5 border-t-0 bg-neutral-100 dark:bg-black" />
-                  <h1 className="label text-center">
-                    goals ({team.goals?.length})
-                  </h1>
-                  {team.goals.map((scorer, index) => (
-                    <div
-                      key={index}
-                      className="flex justify-around  p-1 rounded-lg"
-                    >
-                      <h3 className="text-sm font-semibold">{index + 1})</h3>
-                      <h3 className="text-sm">
-                        {scorer?.players[0].playerName}
-                      </h3>
-                      <h3 className="text-sm">{scorer?.minute} min</h3>
-                      <h3 className="text-sm">{scorer?.type}</h3>
-                    </div>
-                  ))}
-                  {team?.penaltyShoot.length > 0 ? (
-                    <>
-                      <hr className="my-1 h-0.5 border-t-0 bg-neutral-100 dark:bg-black" />
-                      <div>
-                        <h1 className="label text-center">
-                          shootout ({team.goals?.length})
-                        </h1>
-                        {team?.penaltyShoot.map((item, i) => (
-                          <div
-                            key={i}
-                            className="flex space-x-4 items-center justify-around gap-5"
-                          >
-                            <h5>
-                              {i + 1} : {item ? "scored" : "missed"}
-                            </h5>
-                          </div>
-                        ))}
-                      </div>
-                    </>
-                  ) : null}
-                </div>
-              ))}
-          </div>
         </div>
       </div>
 
       {/* //dialogBox */}
       <Dialog>
         <DialogTrigger asChild>
-          <Button className="bg-green-400">
+          <Button className="flex w-full mt-5">
             <span className="capitalize"> more</span>
             <span className="font-bold -mt-px">-&gt;</span>
           </Button>
         </DialogTrigger>
-        <DialogContent className="sm:max-w-[425px] ">
+        <DialogContent className="sm:max-w-[550px] ">
           <DialogHeader>
             <DialogTitle>
-              <h3 className="text-1xl font-extrabold text-black leading-snug mb-2">
+              <h3 className="text-1xl font-extrabold text-black leading-snug mb-2 text-center">
                 {`${participants[0].families.familyName.toUpperCase()} "vs"
                 ${participants[1].families.familyName.toUpperCase()}`}
               </h3>
             </DialogTitle>
           </DialogHeader>
-          <div className="relative max-h-[80vh]">
-            <div className="overflow-y-scroll  h-full">
-              <div className="flex flex-col  justify-center  mb-5">
-                <div className="flex justify-center">
-                  <Image
-                    src="https://kundyolanda.com/wp-content/uploads/2024/03/asset-1.png"
-                    alt="dcc"
-                    width={200}
-                    height={200}
-                  />
-                </div>
+          <div className="relative max-h-[65vh] md:max-h-[75vh] ">
+            <div className="overflow-y-scroll  h-full ">
+              <div className="flex justify-center">
+                <Image
+                  src="https://kundyolanda.com/wp-content/uploads/2024/03/asset-1.png"
+                  alt="dcc"
+                  width={200}
+                  height={200}
+                />
               </div>
               <div>
                 <div className="mb-2">
-                  <p className="text-indigo-600">
-                    {formattedScheduledOn} | {venue} | {round}
+                  <p className="text-gray-700 mb-1">
+                    <span className="font-semibold">Scheduled on:</span>{" "}
+                    <span className="text-indigo-600">
+                      {formattedScheduledOn}
+                    </span>
                   </p>
-                  <p className="text-indigo-600">Status: {match.status}</p>
-                  <p className="text-indigo-600">Duration: {match.duration}</p>
+                  <p className="text-gray-700 mb-1">
+                    <span className="font-semibold">Ground:</span>{" "}
+                    <span className="text-indigo-600">{venue}</span>
+                  </p>
+                  <p className="text-gray-700 mb-1">
+                    <span className="font-semibold">Round:</span>{" "}
+                    <span className="text-indigo-600">{round}</span>
+                  </p>
+                  <p className="text-gray-700 mb-1">
+                    <span className="font-semibold">Status:</span>{" "}
+                    <span className="text-indigo-600">{match.status}</span>
+                  </p>
+                  <p className="text-gray-700 mb-1">
+                    <span className="font-semibold">Duration:</span>{" "}
+                    <span className="text-indigo-600">{match.duration}</span>
+                  </p>
                 </div>
                 {/* //game details */}
 
                 <div>
-                  {match.participants.map((team) => (
+                  {matchData.participants.map((team) => (
                     <div
                       className="flex flex-col mb-4 bg-white text-black p-2 rounded-sm"
                       key={team.id}
@@ -272,30 +260,37 @@ export const MatchCardFront = ({ match }) => {
                 </div>
               </div>
               {/* //commentary */}
-              <div className="text-center capitalize w-full bg-slate-200 text-black">
-                <h1 className="label text-center capitalize w-full bg-black text-white">
-                  Commentary
-                </h1>
-                <ul className="px-1 text-start py-2">
-                  {generateCommentary(match).map((item) => (
-                    <li
-                      style={{
-                        marginTop: "10px",
-                        padding: "0.2rem",
-                        fontSize: "0.8rem",
-                        textTransform: "initial",
-                      }}
-                      key={item}
-                    >
-                      {item}
-                    </li>
-                  ))}
-                </ul>
-              </div>
+
+              {match.status !== "UPCOMING" ? (
+                <div className="text-center capitalize w-full bg-slate-200 text-black">
+                  <h1 className="label text-center capitalize w-full bg-black text-white">
+                    Commentary
+                  </h1>
+                  <ul className="px-1 text-start py-2">
+                    {generateCommentary(matchData).map((item) => (
+                      <li
+                        style={{
+                          marginTop: "10px",
+                          padding: "0.2rem",
+                          fontSize: "0.8rem",
+                          textTransform: "initial",
+                        }}
+                        key={item}
+                      >
+                        {item}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              ) : null}
             </div>
           </div>
           <DialogFooter>
-            <Button className="bg-blue-400">Refresh</Button>
+            {match.status !== "UPCOMING" && match.status !== "PLAYED" ? (
+              <Button className="bg-blue-400" onClick={handleRefresh}>
+                {isLoading ? "Loading..." : "Refresh"}
+              </Button>
+            ) : null}
           </DialogFooter>
         </DialogContent>
       </Dialog>
