@@ -6,17 +6,17 @@ import { useEffect, useState } from "react";
 
 const imageSlides = [
   {
-    url: "/img1.jpg",
+    url: "/img1.JPG",
     title: "Kundiyolanda",
     body: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Vitae velit dolorem at repudiandae ut .",
   },
   {
-    url: "/img2.jpg",
+    url: "/img2.JPG",
     title: "Kundiyolanda",
     body: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Vitae velit dolorem at repudiandae ut .",
   },
   {
-    url: "/img3.jpg",
+    url: "/img3.JPG",
     title: "Kundiyolanda",
     body: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Vitae velit dolorem at repudiandae ut .",
   },
