@@ -4,9 +4,9 @@ import { cn } from "@/lib/utils";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 
-import img1 from "../../public/carousel/img1.jpg";
-import img2 from "../../public/carousel/img2.jpg";
-import img3 from "../../public/carousel/img3.jpg";
+import img1 from "../../public/img1.jpg";
+import img2 from "../../public/img2.jpg";
+import img3 from "../../public/img3.jpg";
 
 const imageSlides = [
   {
