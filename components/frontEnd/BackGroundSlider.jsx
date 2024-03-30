@@ -8,17 +8,17 @@ import { useEffect, useState } from "react";
 
 const imageSlides = [
   {
-    url: src("../../public/img1.jpg"),
+    url: "../../public/img1.jpg",
     title: "Kundiyolanda",
     body: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Vitae velit dolorem at repudiandae ut .",
   },
   {
-    url: src("../../public/img2.jpg"),
+    url: "../../public/img2.jpg",
     title: "Kundiyolanda",
     body: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Vitae velit dolorem at repudiandae ut .",
   },
   {
-    url: src("../../public/img2.jpg"),
+    url: "../../public/img2.jpg",
     title: "Kundiyolanda",
     body: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Vitae velit dolorem at repudiandae ut .",
   },
