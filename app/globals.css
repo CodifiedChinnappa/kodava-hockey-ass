@@ -85,8 +85,7 @@ body,
 
 .banner-wrapper {
   width: 100%;
-  height: 11rem;
-  overflow: hidden;
+  padding-block: 2rem;
 }
 
 .banner-wrapper .wrapper {
@@ -95,10 +94,9 @@ body,
 
 .banner-wrapper .wrapper .images {
   display: flex;
-  gap: 20px;
 }
 
-.banner-wrapper:hover .wrapper .images {
+.banner-wrapper .wrapper:hover .images {
   animation-play-state: paused !important;
 }
 

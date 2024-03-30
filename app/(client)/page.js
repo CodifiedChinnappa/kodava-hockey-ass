@@ -1,8 +1,8 @@
+import { SponsorsScroll } from "@/components/common/SponsorsSroll";
 import { BackGroundSlider } from "@/components/frontEnd/BackGroundSlider";
 import LiveScoreCarousel from "@/components/frontEnd/LiveScoreCarousel";
 import { TiesDownload } from "@/components/frontEnd/TiesDownload";
 import { Welcome } from "@/components/frontEnd/Welcome";
-import { CustomScroll } from "@/components/common/CustomScroll";
 
 export const images = [
   {
@@ -49,13 +49,13 @@ export const images = [
 
 export default function Home() {
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between">
+    <main className="flex  flex-col items-center justify-between overflow-x-hidden">
       <div>
         <BackGroundSlider />
         <Welcome />
         <TiesDownload />
-        <CustomScroll images={images} speed={50000} />
         <LiveScoreCarousel />
+        <SponsorsScroll images={images} speed={50000} />
       </div>
     </main>
   );

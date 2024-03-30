@@ -36,7 +36,7 @@ export const Navbar = () => {
         </div>
         <ul className="hidden absolute top-1/2 left-1/2 transform -translate-y-1/2 -translate-x-1/2 lg:flex lg:mx-auto lg:flex lg:items-center lg:w-auto lg:space-x-6">
           <li>
-            <a className="text-sm text-gray-400 hover:text-gray-500" href="#">
+            <a className="text-sm text-blue-600 font-bold hover:text-gray-500" href="#">
               Home
             </a>
           </li>
@@ -57,7 +57,7 @@ export const Navbar = () => {
             </svg>
           </li>
           <li>
-            <a className="text-sm text-blue-600 font-bold" href="#">
+            <a className="text-sm text-gray-400 " href="#">
               About Us
             </a>
           </li>
@@ -93,9 +93,9 @@ export const Navbar = () => {
           </LoginButton>
         </div>
       </nav>
-      <div className={cn(" relative z-50", { hidden: !open })}>
-        <div className="navbar-backdrop fixed inset-0 bg-gray-800 opacity-25" />
-        <nav className="fixed top-0 left-0 bottom-0 flex flex-col w-5/6 max-w-sm py-6 px-6 bg-white border-r overflow-y-auto">
+      <div className={cn(" relative z-50 ", { hidden: !open })}>
+        <div className="navbar-backdrop fixed inset-0 bg-gray-800 opacity-25 " />
+        <nav className="fixed top-0 left-0 bottom-0 flex flex-col w-5/6 max-w-sm py-6 px-6 bg-white border-r overflow-y-auto ">
           <div className="flex items-center mb-8">
             <Link className="mr-auto" href="/">
               <Image src={logo} alt="Logo" width={60} height={60} />
