@@ -4,21 +4,25 @@ import { cn } from "@/lib/utils";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 
+import img1 from "../../public/carousel/img1.jpg";
+import img2 from "../../public/carousel/img2.jpg";
+import img3 from "../../public/carousel/img3.jpg";
+
 const imageSlides = [
   {
-    url: "/carousel/img1.jpg",
+    url: img1,
     title: "Kundiyolanda",
     body: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Vitae velit dolorem at repudiandae ut .",
   },
   {
-    url: "/carousel/img2.jpg",
-    title: "Architectural Marvel",
-    body: "Stunning architectural design with modern buildings.",
+    url: img2,
+    title: "Kundiyolanda",
+    body: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Vitae velit dolorem at repudiandae ut .",
   },
   {
-    url: "/carousel/img3.jpg",
-    title: "Technological Innovation",
-    body: "Cutting-edge technology with futuristic designs.",
+    url: img3,
+    title: "Kundiyolanda",
+    body: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Vitae velit dolorem at repudiandae ut .",
   },
 ];
 
@@ -43,7 +47,8 @@ export const BackGroundSlider = () => {
         />
       </div>
 
-      <div className="bg-white p-3 sm:w-full absolute w-[280px]  md:w-[600px] z-auto top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 sm:top-1/2 sm:left-1/4 flex flex-col space-y-5">
+      <div class="bg-white opacity-75 p-1 md:p-3 sm:w-full absolute w-[280px] md:w-[600px] z-auto bottom-0 left-1/2 transform -translate-x-1/2 -translate-y-1/2 sm:top-auto sm:left-1/4 md:left-2/4 flex flex-col space-y-5">
+
         <div>
           <h1 className="text-lg md:text-4xl">
             {imageSlides[currentState].title}{" "}
@@ -52,7 +57,7 @@ export const BackGroundSlider = () => {
             {imageSlides[currentState].body}{" "}
           </p>
         </div>
-        <div className="flex items-center space-x-3 ">
+        <div className="flex items-center justify-center space-x-3 ">
           {imageSlides.map((slide, index) => (
             <span
               key={index}
