@@ -444,10 +444,9 @@ export const LiveScore = () => {
                       >
                         Add Goal
                       </button>
-                    </div>
 
                     {/* //ScoreCard */}
-                    <div className="border p-5">
+                    <div className="border-t-2 pt-5">
                       <h6 className="pb-2 text-xl font-semibold text-center">
                         Goals: ({team.goals.length})
                       </h6>
@@ -472,6 +471,8 @@ export const LiveScore = () => {
                         ))}
                       </div>
                     </div>
+                    </div>
+
 
                     {/* //shootout */}
                     <div className="border p-5">
@@ -486,14 +487,14 @@ export const LiveScore = () => {
                       <div className="flex justify-center space-x-6">
                         <button
                           type="button"
-                          className="bg-green-500 rounded p-2"
+                          className="bg-green-600  text-white border rounded-sm shadow-md p-1 transition duration-300 ease-in-out transform hover:scale-105"
                           onClick={() => onPenaltyShoot(team.id, true)}
                         >
                           Score
                         </button>
                         <button
                           type="button"
-                          className="bg-red-500 rounded p-2"
+                          className="bg-red-500 text-white border rounded-sm shadow-md p-1 transition duration-300 ease-in-out transform hover:scale-105"
                           onClick={() => onPenaltyShoot(team.id, false)}
                         >
                           Miss

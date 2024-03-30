@@ -23,7 +23,7 @@ export const SponsorsScroll = ({ images, speed }) => {
         </p>
         <div className="wrapper">
           <ImageSection images={images} speed={speed} />
-          <ImageSection images={images} speed={speed} />
+          {/* <ImageSection images={images} speed={speed} /> */}
         </div>
       </div>
   );

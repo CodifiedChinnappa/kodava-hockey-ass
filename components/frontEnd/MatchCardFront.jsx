@@ -2,9 +2,22 @@ import React from "react";
 import { format } from "date-fns";
 import Link from "next/link";
 import Image from "next/image";
+import { ChevronRightIcon } from "@radix-ui/react-icons";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "../ui/dialog";
+import { Button } from "../ui/button";
+import { generateCommentary } from "@/lib/utils";
 
 export const MatchCardFront = ({ match }) => {
   const { id, venue, scheduledOn, pool, round, participants } = match;
+
+  console.log(match);
 
   // Format scheduledOn date
   const formattedScheduledOn = format(new Date(scheduledOn), "MM/dd/yyyy");
@@ -90,79 +103,200 @@ export const MatchCardFront = ({ match }) => {
             />
           </div>
         </div>
-        <h3 className="text-1xl font-extrabold text-indigo-50 leading-snug mb-2">
-          {`${participants[0].families.familyName.toUpperCase()} "vs"
-                ${participants[1].families.familyName.toUpperCase()}`}
-        </h3>
-
-        <div className="mb-2">
-          <p className="text-indigo-200">
-            {formattedScheduledOn} | {venue} | {round}
-          </p>
-          <p className="text-indigo-200">Status: {match.status}</p>
-          <p className="text-indigo-200">Duration: {match.duration}</p>
-        </div>
-        {/* //game details */}
-
         <div>
-          {match.status !== "UPCOMING" &&
-            match.participants.map((team) => (
-              <div
-                className="flex flex-col mb-4 bg-white text-black p-2 rounded-sm"
-                key={team.id}
-              >
-                <h1 className="label text-center capitalize">
-                  {team.families.familyName}
-                </h1>
-                <hr className="my-1 h-0.5 border-t-0 bg-neutral-100 dark:bg-black" />
-                <h1 className="label text-center">
-                  goals ({team.goals?.length})
-                </h1>
-                {team.goals.map((scorer, index) => (
-                  <div
-                    key={index}
-                    className="flex justify-around  p-1 rounded-lg"
-                  >
-                    <h3 className="text-sm font-semibold">{index + 1})</h3>
-                    <h3 className="text-sm">{scorer?.players[0].playerName}</h3>
-                    <h3 className="text-sm">{scorer?.minute} min</h3>
-                    <h3 className="text-sm">{scorer?.type}</h3>
-                  </div>
-                ))}
-                {team?.penaltyShoot.length > 0 ? (
-                  <>
-                    <hr className="my-1 h-0.5 border-t-0 bg-neutral-100 dark:bg-black" />
-                    <div>
-                      <h1 className="label text-center">
-                        shootout ({team.goals?.length})
-                      </h1>
-                      {team?.penaltyShoot.map((item, i) => (
-                        <div
-                          key={i}
-                          className="flex space-x-4 items-center justify-around gap-5"
-                        >
-                          <h5>
-                            {i + 1} : {item ? "scored" : "missed"}
-                          </h5>
-                        </div>
-                      ))}
+          <h3 className="text-1xl font-extrabold text-indigo-50 leading-snug mb-2">
+            {`${participants[0]?.families?.familyName?.toUpperCase()}(${
+              participants[0]?.goals?.length
+            }) /  
+            ${participants[1]?.families?.familyName?.toUpperCase()} (${
+              participants[1]?.goals?.length
+            })`}
+          </h3>
+
+          <div className="mb-2">
+            <p className="text-indigo-200">
+              {formattedScheduledOn} | {venue} | {round}
+            </p>
+            <p className="text-indigo-200">Status: {match.status}</p>
+            <p className="text-indigo-200">Duration: {match.duration}</p>
+          </div>
+          {/* //game details */}
+
+          <div>
+            {match.status !== "UPCOMING" &&
+              match.participants.map((team) => (
+                <div
+                  className="flex flex-col mb-4 bg-white text-black p-2 rounded-sm"
+                  key={team.id}
+                >
+                  <h1 className="label text-center capitalize">
+                    {team.families.familyName}
+                  </h1>
+                  <hr className="my-1 h-0.5 border-t-0 bg-neutral-100 dark:bg-black" />
+                  <h1 className="label text-center">
+                    goals ({team.goals?.length})
+                  </h1>
+                  {team.goals.map((scorer, index) => (
+                    <div
+                      key={index}
+                      className="flex justify-around  p-1 rounded-lg"
+                    >
+                      <h3 className="text-sm font-semibold">{index + 1})</h3>
+                      <h3 className="text-sm">
+                        {scorer?.players[0].playerName}
+                      </h3>
+                      <h3 className="text-sm">{scorer?.minute} min</h3>
+                      <h3 className="text-sm">{scorer?.type}</h3>
                     </div>
-                  </>
-                ) : null}
-              </div>
-            ))}
+                  ))}
+                  {team?.penaltyShoot.length > 0 ? (
+                    <>
+                      <hr className="my-1 h-0.5 border-t-0 bg-neutral-100 dark:bg-black" />
+                      <div>
+                        <h1 className="label text-center">
+                          shootout ({team.goals?.length})
+                        </h1>
+                        {team?.penaltyShoot.map((item, i) => (
+                          <div
+                            key={i}
+                            className="flex space-x-4 items-center justify-around gap-5"
+                          >
+                            <h5>
+                              {i + 1} : {item ? "scored" : "missed"}
+                            </h5>
+                          </div>
+                        ))}
+                      </div>
+                    </>
+                  ) : null}
+                </div>
+              ))}
+          </div>
         </div>
       </div>
-      {/* Card footer */}
-      {/* <div className="relative text-right">
-              <Link
-                href={`live/${id}`}
-                className="inline-flex w-11 h-11 justify-center items-center bg-green-400 hover:bg-green-300 text-pink-50 hover:text-white rounded-full transition duration-150"
-              >
-                <span className="sr-only">Read more</span>{" "}
-                <span className="font-bold -mt-px">-&gt;</span>
-              </Link>
-            </div> */}
+
+      {/* //dialogBox */}
+      <Dialog>
+        <DialogTrigger asChild>
+          <Button className="bg-green-400">
+            <span className="capitalize"> more</span>
+            <span className="font-bold -mt-px">-&gt;</span>
+          </Button>
+        </DialogTrigger>
+        <DialogContent className="sm:max-w-[425px] ">
+          <DialogHeader>
+            <DialogTitle>
+              <h3 className="text-1xl font-extrabold text-black leading-snug mb-2">
+                {`${participants[0].families.familyName.toUpperCase()} "vs"
+                ${participants[1].families.familyName.toUpperCase()}`}
+              </h3>
+            </DialogTitle>
+          </DialogHeader>
+          <div className="relative max-h-[80vh]">
+            <div className="overflow-y-scroll  h-full">
+              <div className="flex flex-col  justify-center  mb-5">
+                <div className="flex justify-center">
+                  <Image
+                    src="https://kundyolanda.com/wp-content/uploads/2024/03/asset-1.png"
+                    alt="dcc"
+                    width={200}
+                    height={200}
+                  />
+                </div>
+              </div>
+              <div>
+                <div className="mb-2">
+                  <p className="text-indigo-600">
+                    {formattedScheduledOn} | {venue} | {round}
+                  </p>
+                  <p className="text-indigo-600">Status: {match.status}</p>
+                  <p className="text-indigo-600">Duration: {match.duration}</p>
+                </div>
+                {/* //game details */}
+
+                <div>
+                  {match.participants.map((team) => (
+                    <div
+                      className="flex flex-col mb-4 bg-white text-black p-2 rounded-sm"
+                      key={team.id}
+                    >
+                      <hr className="my-1 h-0.5 border-t-0 bg-neutral-100 dark:bg-black" />
+
+                      <h1 className="label text-center capitalize w-full bg-black text-white">
+                        {team.families.familyName}({team.goals?.length})
+                      </h1>
+
+                      <div>
+                        {team.goals.map((scorer, index) => (
+                          <div
+                            key={index}
+                            className="flex justify-around  p-1 rounded-lg"
+                          >
+                            <h3 className="text-sm font-semibold">
+                              {index + 1})
+                            </h3>
+                            <h3 className="text-sm">
+                              {scorer?.players[0].playerName}
+                            </h3>
+                            <h3 className="text-sm">{scorer?.minute} min</h3>
+                            <h3 className="text-sm">{scorer?.type}</h3>
+                          </div>
+                        ))}
+                      </div>
+
+                      <div>
+                        {team?.penaltyShoot.length > 0 ? (
+                          <>
+                            <hr className="my-1 h-[1px] border-t-0 bg-black" />
+                            <div className="flex justify-evenly">
+                              <h1 className="label text-center">
+                                Shootout ({team.penaltyShoot?.length})
+                              </h1>
+                              <div>
+                                {team?.penaltyShoot.map((item, i) => (
+                                  <div
+                                    key={i}
+                                    className="flex space-x-4 items-center justify-around gap-5"
+                                  >
+                                    <h5>
+                                      {i + 1} : {item ? "scored" : "missed"}
+                                    </h5>
+                                  </div>
+                                ))}
+                              </div>
+                            </div>
+                          </>
+                        ) : null}
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+              {/* //commentary */}
+              <div className="text-center capitalize w-full bg-slate-200 text-black">
+                <h1 className="label text-center capitalize w-full bg-black text-white">
+                  Commentary
+                </h1>
+                <ul className="px-1 text-start py-2">
+                  {generateCommentary(match).map((item) => (
+                    <li
+                      style={{
+                        marginTop: "10px",
+                        padding: "0.2rem",
+                        fontSize: "0.8rem",
+                        textTransform: "initial",
+                      }}
+                      key={item}
+                    >
+                      {item}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </div>
+          </div>
+        </DialogContent>
+      </Dialog>
     </div>
   );
 };

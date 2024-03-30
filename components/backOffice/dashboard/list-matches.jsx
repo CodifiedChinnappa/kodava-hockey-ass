@@ -27,6 +27,14 @@ export const ListMatches = () => {
     fetchMatches();
   }, []);
 
+  if (matches.length === 0) {
+    return (
+      <h3 className="text-2xl font-extrabold text-indigo-50 leading-snug text-center  mb-10">
+        No matches found, Please add a match to continue.
+      </h3>
+    );
+  }
+
   return (
     <div className=" min-h-screen pt-7 pb-10  text-gray-600 ">
       <h3 className="text-2xl font-extrabold text-indigo-50 leading-snug text-center capitalize mb-10">

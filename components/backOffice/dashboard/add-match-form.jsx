@@ -1,6 +1,6 @@
 "use client";
 
-import { useContext, useState, useTransition } from "react";
+import {  useState, useTransition } from "react";
 
 import { Button } from "@/components/ui/button";
 import { FormError } from "@/components/common/form-error";
@@ -9,18 +9,7 @@ import { useCurrentUser } from "@/hooks/use-current-user";
 
 import { addMatch } from "@/actions/add-match";
 import CustomDropDown from "@/components/common/CustomDropDown";
-import { poolOptions, roundOptions, venueOptions } from "@/data";
 import { CustomSelect } from "@/components/common/CustomSelect";
-
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogFooter,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from "@/components/ui/dialog";
 import { addFamily } from "@/actions/add-family";
 import { useFamilyContext } from "@/context/Families.provider";
 import { Pool, Round, Venues } from "@prisma/client";
